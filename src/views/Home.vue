@@ -1,49 +1,73 @@
 <template>
   <div class="home">
-    <h2 class="title">
-      Consigo maratonar
-      <div class="container-multiselect">
-        <multiselect
-          v-model="selected"
-          :options="options"
-          selectLabel=""
-          deselectLabel=""
-          noResult="Nenhum título encontrado"
-          placeholder="Game of Thrones"
-          track-by="title"
-          :option-height="34"
-          :custom-label="customLabel"
-          :show-labels="false"
-        >
-          <template slot="option" slot-scope="props">
-            <div class="container-option">
-              <img
-                class="option__image"
-                :src="
-                  `https://image.tmdb.org/t/p/w500/${props.option.poster_path}`
-                "
-                alt="No Man’s Sky"
-              />
-              <div class="option__desc">
-                <span class="option__title">{{ props.option.title }}</span
-                ><span class="option__small">{{
-                  props.option.release_date | releaseDate
-                }}</span>
+    <div class="header">
+      <div class="header__container-logo">
+        <img src="@/assets/logo.svg" alt="Maratonator" class="logo" />
+        <h2 class="color-primary">maratonator</h2>
+      </div>
+      <div class="header__router">
+        <router-link :to="{ path: '/' }">início</router-link>
+        <router-link :to="{ path: '/' }">sobre</router-link>
+      </div>
+    </div>
+    <div class="body">
+      <div class="body__middle">
+        <div class="align-center-vertical">
+          <h2 class="title">
+            Consigo maratonar
+            <div class="container-multiselect">
+              <multiselect
+                v-model="selected"
+                :options="options"
+                selectLabel=""
+                deselectLabel=""
+                noResult="Nenhum título encontrado"
+                placeholder="Game of Thrones"
+                track-by="title"
+                :option-height="34"
+                :custom-label="customLabel"
+                :show-labels="false"
+              >
+                <template slot="option" slot-scope="props">
+                  <div class="container-option">
+                    <img
+                      class="option__image"
+                      :src="
+                        `https://image.tmdb.org/t/p/w500/${props.option.poster_path}`
+                      "
+                      alt="No Man’s Sky"
+                    />
+                    <div class="option__desc">
+                      <span class="option__title">{{ props.option.title }}</span
+                      ><span class="option__small">{{
+                        props.option.release_date | releaseDate
+                      }}</span>
+                    </div>
+                  </div>
+                </template>
+              </multiselect>
+            </div>
+            em&nbsp;<span> 1 </span>&nbsp;
+            <div class="color-primary align-flex-start">
+              semana
+              <div class="controls">
+                <img
+                  src="@/assets/arrow_drop_up.svg"
+                  alt="Up"
+                  class="img-icon"
+                />
+                <img
+                  src="@/assets/arrow_drop_down.svg"
+                  alt="Down"
+                  class="img-icon"
+                />
               </div>
             </div>
-          </template>
-        </multiselect>
-      </div>
-      em&nbsp;<span> 1 </span>&nbsp;
-      <div class="color-primary align-flex-start">
-        semana
-        <div class="controls">
-          <img src="@/assets/arrow_drop_up.svg" alt="Up" class="img-icon" />
-          <img src="@/assets/arrow_drop_down.svg" alt="Down" class="img-icon" />
+            ?
+          </h2>
         </div>
       </div>
-      ?
-    </h2>
+    </div>
   </div>
 </template>
 
@@ -412,17 +436,62 @@ export default {
 };
 </script>
 <style lang="scss">
+.body {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  .body__middle {
+    display: table-cell;
+    vertical-align: middle;
+
+    .align-center-vertical {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f9f9fe;
+      .title {
+        align-items: baseline;
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+        .container-multiselect {
+          border-bottom: 3px solid #354ef7;
+          margin: 0px 10px;
+        }
+      }
+    }
+  }
+}
+.header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  top: 0;
+  .header__container-logo {
+    display: flex;
+    .logo {
+      width: 40px;
+      margin: 0px 10px;
+    }
+  }
+  .header__router {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a {
+      text-decoration: none;
+      color: #354ef7;
+      margin: 3px 10px;
+    }
+  }
+}
 .color-primary {
   color: #354ef7;
-}
-.title {
-  align-items: baseline;
-  display: flex;
-  justify-items: center;
-  .container-multiselect {
-    border-bottom: 3px solid #354ef7;
-    margin: 0px 10px;
-  }
 }
 
 .multiselect__select {
@@ -431,6 +500,7 @@ export default {
 
 .multiselect__tags {
   border: none;
+  background-color: #f9f9fe;
   align-items: center;
   display: flex;
   padding: 8px 0px;
